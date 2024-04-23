@@ -95,9 +95,9 @@ class MRP:
     
     
     
-
-ghp_prod = GHP('5:20,7:40', '5:18,7:40', '2').get_production()
-example_prod = pd.Series(data=[0,0,0,28,0,30])
-mrp1 = MRP(22, 3, 40, example_prod)
-mrp1.calculate_MRP()
-print(mrp1)
+if __name__ == "__main__":
+    ghp_prod = GHP('5:20,7:40', '5:18,7:40', '2').get_production()
+    example_prod = pd.Series(data=[0,0,0,28,0,30])
+    mrp1 = MRP(22, 3, 40, example_prod)
+    mrp1.calculate_MRP()
+    print(mrp1)

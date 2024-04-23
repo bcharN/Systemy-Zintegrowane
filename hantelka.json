@@ -1,0 +1,41 @@
+{
+    "number_of_weeks":10,
+    "assembly_components":{
+        "hantla do cwiczen":{
+            "name":"hantla do ćwiczeń",
+            "BOM_level":0,
+            "parts_multiplier":1,
+            "algo_type":"GHP",
+            "expected_demand":[0,0,0,0,20,0,40,0],
+            "production":[0,0,0,0,18,0,40,0],
+            "available":2
+        },
+        "hantla":{
+            "name":"hantla",
+            "BOM_level":1,
+            "parts_multiplier":1,
+            "algo_type":"MRP",
+            "lead_time":3,
+            "bach_size":20,
+            "in_stock":10
+        },
+        "ciezarki":{
+
+        },
+        "zelazo":{
+
+        },
+        "pokrywa gumowa":{
+
+        }
+    },
+    "assembly_structure":{
+        "hantla do cwiczen":{
+            "hantla":{},
+            "ciezarki":{
+                "zelazo":{},
+                "pokrywa gumowa":{}
+            }
+        }
+    }
+}

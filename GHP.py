@@ -67,8 +67,11 @@ class GHP:
         print(f'produkcja to: {self.calculate_ghp().loc['produkcja',:]}')
         return self.calculate_ghp().loc['produkcja',:]
 
-ghp1 = GHP('5:20,7:40', '5:18,7:40', '2')
 
+if __name__ == "__main__":
+
+    ghp1 = GHP('5:20,7:40', '5:18,7:40', '2')
+    print(ghp1)
 #print(ghp1.get_production())
 
 # g = calculate_ghp()
