@@ -66,7 +66,8 @@ class GHP:
     def get_production(self):
         print(f'produkcja to: {self.calculate_ghp().loc['produkcja',:]}')
         return self.calculate_ghp().loc['produkcja',:]
-
+    def recalc(self):
+        self.calculate_ghp()
 
 if __name__ == "__main__":
 

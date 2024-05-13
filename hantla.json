@@ -1,0 +1,36 @@
+{
+    "hantla_do_cwiczen": {
+        "hantla": {
+            "params": {
+                "quantity": "9",
+                "lead_time": "19",
+                "batch_size": "19",
+                "available": "9"
+            }
+        },
+        "ciezarki": {
+            "params": {
+                "quantity": "20012312",
+                "lead_time": "3",
+                "batch_size": "17",
+                "available": "3"
+            },
+            "zelazo": {
+                "params": {
+                    "quantity": "20000",
+                    "lead_time": "2",
+                    "batch_size": "20",
+                    "available": "3"
+                }
+            },
+            "pokrywa gumowa": {
+                "params": {
+                    "quantity": 2000,
+                    "lead_time": 2,
+                    "batch_size": 20,
+                    "available": 3
+                }
+            }
+        }
+    }
+}
