@@ -101,4 +101,4 @@ if __name__ == "__main__":
     example_prod = pd.Series(data=[0,0,0,28,0,30])
     mrp1 = MRP(22, 3, 40, example_prod)
     mrp1.calculate_MRP()
-    # print(mrp1)
+    
