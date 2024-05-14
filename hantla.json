@@ -1,0 +1,46 @@
+{
+    "hantla_do_cwiczen": {
+        "ghp_params": {
+            "demand": "5:20,7:40",
+            "production": "5:18,7:40",
+            "available": "5"
+        },
+        "hantla": {
+            "params": {
+                "quantity": 5,
+                "lead_time": 1,
+                "batch_size": 2,
+                "available": 9,
+                "output":[]
+            }
+        },
+        "ciezarki": {
+            "params": {
+                "quantity": 2,
+                "lead_time": 3,
+                "batch_size": 17,
+                "available": 3,
+                "output":[]
+            },
+            "zelazo": {
+                "params": {
+                    "quantity": 2,
+                    "lead_time": 2,
+                    "batch_size": 20,
+                    "available": 3,
+                    "output":[]
+
+                }
+            },
+            "pokrywa gumowa": {
+                "params": {
+                    "quantity": 2,
+                    "lead_time": 2,
+                    "batch_size": 15,
+                    "available": 4,
+                    "output":[]
+                }
+            }
+        }
+    }
+}
