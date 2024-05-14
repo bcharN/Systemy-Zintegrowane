@@ -12,9 +12,9 @@ class MRP:
         
     def __init__(self, na_stanie, czas_realizacji, wielkosc_partii, calk_zapot_list:pd.Series,  ilosc_tyg=9):
         self.ilosc_tyg = ilosc_tyg
-        self.na_stanie = na_stanie
-        self.wielkosc_partii = wielkosc_partii
-        self.czas_realizacji = czas_realizacji
+        self.na_stanie = int(na_stanie)
+        self.wielkosc_partii = int(wielkosc_partii)
+        self.czas_realizacji = int(czas_realizacji)
         self.calk_zapot_list = self.parse_calk_zap_list(czl=calk_zapot_list, it=self.ilosc_tyg)
         self.mrp = self.create_dataframe(self.ilosc_tyg)
         # #LABELS
@@ -48,6 +48,8 @@ class MRP:
         
         empt = [0 for x in range(ilosc_tyg)]
 
+        print(empt)
+
         data = {
             self.calk_zap:self.calk_zapot_list,
             self.plan_przyj:empt,
@@ -57,7 +59,7 @@ class MRP:
             self.plan_przyj_zam:empt
         }
 
-        mrp = pd.DataFrame(data=data, index=[x for x in range(1,ilosc_tyg+1)], dtype="int64")        
+        mrp = pd.DataFrame(data=data, index=[x for x in range(1,self.ilosc_tyg+1)], dtype="int64")        
         return mrp
 
     def calculate_MRP(self):
@@ -91,7 +93,10 @@ class MRP:
     
     def getCalkZap(self):
         print(self.mrp)
-        return self.mrp.loc[:,self.calk_zap]
+        print(f'calk zap list = : {self.calk_zapot_list}')
+        # print(self.mrp.loc[:,self.calk_zap])
+        # return self.mrp.loc[:,self.calk_zap].to_list()
+        return self.mrp.loc[:,self.calk_zap].fillna(0).to_list()
     def recalc(self):
         self.calculate_MRP()
     def __str__(self):
@@ -100,10 +105,10 @@ class MRP:
     
     
     
-if __name__ == "__main__":
-    ghp_prod = GHP('5:20,7:40', '5:18,7:40', '2').get_production()
-    example_prod = pd.Series(data=[0,0,0,28,0,30])
-    mrp1 = MRP(22, 3, 40, example_prod)
-    mrp1.calculate_MRP()
-    print(mrp1.getCalkZap())
+# if __name__ == "__main__":
+#     ghp_prod = GHP('5:20,7:40', '5:18,7:40', '2').get_production()
+#     example_prod = pd.Series(data=[0,0,0,28,0,30])
+#     mrp1 = MRP(22, 3, 40, example_prod)
+#     mrp1.calculate_MRP()
+#     print(mrp1.getCalkZap())
     

@@ -39,7 +39,7 @@ def calcAllMRPs():
     canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
     canvas.configure(yscrollcommand=scroll_y.set, xscrollcommand=scroll_x.set)
 
-    def createMRPTable(frame, item_name, item_data, parent_el = None, parent_output=None):
+    def createMRPTable(frame, item_name, item_data,  parent_output=None):
         na_stanie = item_data['params']['available']
         czas_realizacji = item_data['params']['lead_time']
         wielkosc_partii = item_data['params']['batch_size']
@@ -51,11 +51,11 @@ def calcAllMRPs():
         # else : 
         #     calk_zap = bom['hantla_do_cwiczen'][parent_el]['params']['output']
         elMRP = MRP(na_stanie, czas_realizacji, wielkosc_partii, parent_output)#bom['hantla_do_cwiczen'][parent]['params']['output'] lub ['production'] w GHP
-        print(f'calk zap: {elMRP.getCalkZap()}')
-        bom["hantla_do_cwiczen"][item]["params"]["output"] = elMRP.getCalkZap() #to list
-        # with open(filename, 'w') as f:
-        #     json.dump(bom, f, indent=4)
         mrpTable = elMRP.calculate_MRP()
+        print(f'calk zap {item_name}: {elMRP.getCalkZap()}')
+        bom["hantla_do_cwiczen"][item]["params"]["output"] = elMRP.getCalkZap() #to list
+        with open(filename, 'w') as f:
+            json.dump(bom, f, indent=4)
 
         row_names = ["calkowite zapotrzebowanie", "planowane przyjecia", "przewidywane na stanie", "zapotrzebowanie netto", "planowane zamowienia", "planowane przyjecie zamowien"]
         mrpTable.index = pd.Index(row_names)
@@ -83,7 +83,7 @@ def calcAllMRPs():
                 frame.grid(row=row, column=0, sticky="nsew")
                 label_item = tk.Label(frame, text=f"{item} MRP Table", font=("Helvetica", 12, "bold"))
                 label_item.grid(row=2, column=0, columnspan=2)
-                createMRPTable(frame, item, item_data,parent_el='hantla_do_cwiczen', parent_output=parent_el_output)
+                createMRPTable(frame, item, item_data, parent_output=parent_el_output)
                 row += 1
 
                 ttk.Separator(scrollable_frame, orient='horizontal').grid(row=row, column=0, columnspan=2, sticky="ew")
