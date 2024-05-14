@@ -91,7 +91,7 @@ class MRP:
     
     def getCalkZap(self):
         print(self.mrp)
-        return self.mrp.loc[:self.calk_zap]
+        return self.mrp.loc[:,self.calk_zap]
     def recalc(self):
         self.calculate_MRP()
     def __str__(self):

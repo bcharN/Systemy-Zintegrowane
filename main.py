@@ -45,14 +45,14 @@ def calcAllMRPs():
         wielkosc_partii = item_data['params']['batch_size']
         calk_zap = pd.Series(data=[0,0,0,28,0,30])
     
-        if parent_el == "hantla_do_cwiczen":
-            tempGHP = GHP(bom['hantla_do_cwiczen']['ghp_params'])
-            calk_zap = pd.Series( tempGHP.calculate_production())
-        else : 
-            calk_zap = bom['hantla_do_cwiczen'][parent_el]['params']['output']
-        elMRP = MRP(na_stanie, czas_realizacji, wielkosc_partii, calk_zap)#bom['hantla_do_cwiczen'][parent]['params']['output'] lub ['production'] w GHP
+        # if parent_el == "hantla_do_cwiczen":
+        #     tempGHP = GHP(bom['hantla_do_cwiczen']['ghp_params'])
+        #     calk_zap = pd.Series( tempGHP.calculate_production())
+        # else : 
+        #     calk_zap = bom['hantla_do_cwiczen'][parent_el]['params']['output']
+        elMRP = MRP(na_stanie, czas_realizacji, wielkosc_partii, parent_output)#bom['hantla_do_cwiczen'][parent]['params']['output'] lub ['production'] w GHP
         print(f'calk zap: {elMRP.getCalkZap()}')
-        bom["hantla_do_cwiczen"][item]["params"]["output"] = elMRP.getCalkZap() 
+        bom["hantla_do_cwiczen"][item]["params"]["output"] = elMRP.getCalkZap() #to list
         # with open(filename, 'w') as f:
         #     json.dump(bom, f, indent=4)
         mrpTable = elMRP.calculate_MRP()
@@ -71,10 +71,11 @@ def calcAllMRPs():
     row = 0
 
     for item in bom['hantla_do_cwiczen']:
+        tempGHP = GHP(bom['hantla_do_cwiczen']['ghp_params'])
+        parent_el_output = pd.Series( tempGHP.calculate_production())
         if bom['hantla_do_cwiczen'][item] == "ghp_params":
-            tempGHP = GHP(bom['hantla_do_cwiczen']['ghp_params'])
-            parent_output = pd.Series( tempGHP.calculate_production())
-            #parent_output = bom['hantla_do_cwiczen'][item]["production"]
+            pass
+        #parent_output = bom['hantla_do_cwiczen'][item]["production"]
         else:
             item_data = bom['hantla_do_cwiczen'][item]
             if 'params' in item_data:
@@ -82,12 +83,12 @@ def calcAllMRPs():
                 frame.grid(row=row, column=0, sticky="nsew")
                 label_item = tk.Label(frame, text=f"{item} MRP Table", font=("Helvetica", 12, "bold"))
                 label_item.grid(row=2, column=0, columnspan=2)
-                createMRPTable(frame, item, item_data,parent_el='hantla_do_cwiczen', parent_output=parent_output)
+                createMRPTable(frame, item, item_data,parent_el='hantla_do_cwiczen', parent_output=parent_el_output)
                 row += 1
 
                 ttk.Separator(scrollable_frame, orient='horizontal').grid(row=row, column=0, columnspan=2, sticky="ew")
                 row += 1
-            
+                parent_el_output = pd.Series(item_data["params"]["output"])
             for sub_item in item_data:
                 if sub_item != 'params' and 'params' in item_data[sub_item]:
                     frame = ttk.Frame(scrollable_frame)
@@ -95,7 +96,7 @@ def calcAllMRPs():
                     label_item = tk.Label(frame, text=f"{sub_item} MRP Table", font=("Helvetica", 12, "bold"))
                     label_item.grid(row=2, column=0, columnspan=2)
                     print(item_data)
-                    createMRPTable(frame, sub_item, item_data[sub_item],parent_el=item_data)
+                    createMRPTable(frame, sub_item, item_data[sub_item],parent_output=parent_el_output)
                     row += 1
 
                     ttk.Separator(scrollable_frame, orient='horizontal').grid(row=row, column=0, columnspan=2, sticky="ew")
