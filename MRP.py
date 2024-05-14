@@ -88,6 +88,10 @@ class MRP:
                 self.mrp.loc[aktu_tydz, self.przew_na_stn] = zn 
 
         return self.mrp.transpose()
+    
+    def getCalkZap(self):
+        print(self.mrp)
+        return self.mrp.loc[:self.calk_zap]
     def recalc(self):
         self.calculate_MRP()
     def __str__(self):
@@ -101,4 +105,5 @@ if __name__ == "__main__":
     example_prod = pd.Series(data=[0,0,0,28,0,30])
     mrp1 = MRP(22, 3, 40, example_prod)
     mrp1.calculate_MRP()
+    print(mrp1.getCalkZap())
     
